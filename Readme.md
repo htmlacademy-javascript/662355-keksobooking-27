@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [ Evgeniia Dmitrieva](https://up.htmlacademy.ru/javascript/27/user/662355).
-* Наставник: `Сергей Зубов`.
+* Наставник: [Сергей Зубов](https://htmlacademy.ru/profile/serj).
 
 ---
 
