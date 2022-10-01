@@ -1,12 +1,13 @@
 function getRandomInt(min, max) {
-  return getRandomFloat(min, max, 0);
+  const newMin = Math.ceil(min);
+  const newMax = Math.floor(max);
+  return getRandomFloat(newMin, newMax, 0);
 }
 
-
-getRandomInt(5, 10);
+getRandomInt(1.1, 1.9);
 
 function getRandomFloat(min, max, digits) {
-  if (min < 0 || max < 0 || max <= min) {
+  if (min < 0 || max < 0 || max < min) {
     return NaN;
   }
 
