@@ -7,7 +7,7 @@ function getRandomInt(min, max) {
 getRandomInt(1.1, 1.9);
 
 function getRandomFloat(min, max, digits) {
-  if (min < 0 || max < 0 || max < min) {
+  if (min < 0 || max < 0 || max < min || isNotNumber(min) || isNotNumber(max) || isNotNumber(digits)) {
     return NaN;
   }
 
@@ -15,3 +15,7 @@ function getRandomFloat(min, max, digits) {
 }
 
 getRandomFloat(1, 5, 2);
+
+function isNotNumber(param) {
+  return typeof param !== 'number';
+}
