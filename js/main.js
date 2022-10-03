@@ -7,11 +7,9 @@ function getRandomInt(min, max) {
 getRandomInt(1.1, 1.9);
 
 function getRandomFloat(min, max, digits) {
-  if (min < 0 || max < 0 || max < min || isNotNumber(min) || isNotNumber(max) || isNotNumber(digits)) {
-    return NaN;
-  }
-
-  return (Math.random() * (max - min) + min).toFixed(digits);
+  return (min < 0 || max < 0 || max < min || isNotNumber(min) || isNotNumber(max) || isNotNumber(digits))
+    ? NaN
+    : (Math.random() * (max - min) + min).toFixed(digits);
 }
 
 getRandomFloat(1, 5, 2);
