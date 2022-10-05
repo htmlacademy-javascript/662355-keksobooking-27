@@ -5,6 +5,8 @@ const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'condit
 const PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
+const TITLES = ['Новая квартира', 'Трехкомнатный дом', 'Свободное бунгало'];
+const DESCRIPTIONS = ['Просторные комнаты', 'Современный дизайн', 'Роскошная мебель'];
 
 function getRandomInt(min, max) {
   const newMin = Math.ceil(min);
@@ -35,9 +37,19 @@ const getAvatarFunction = () => {
 const getAvatar = getAvatarFunction();
 
 const getRandomElement = (array) => array[getRandomInt(0, array.length - 1)];
-const getRandomFeatures = () => FEATURES.filter(() => getRandomInt(0, 1));
-const getRandomPhotos = () => PHOTOS.filter(() => getRandomInt(0, 1));
 
+const getRandomArray = (array) => {
+  const result = array.filter(() => getRandomInt(0, 1));
+  if (result.length === 0) {
+    result.push(getRandomElement(array));
+  }
+  return result;
+};
+
+const getRandomFeatures = () => getRandomArray(FEATURES);
+const getRandomPhotos = () => getRandomArray(PHOTOS);
+const getRandomDescription = () => getRandomElement(DESCRIPTIONS);
+const getRandomTitle = () => getRandomElement(TITLES);
 const getRandomType = () => getRandomElement(TYPES);
 const getRandomTime = () => getRandomElement(TIMES);
 
@@ -49,10 +61,10 @@ const createOffer = () => {
   };
   return {
     author: {
-      avatar: getAvatar()
+      avatar: getAvatar(),
     },
     offer: {
-      title: 'Новая квартира',
+      title: getRandomTitle(),
       address: `${location.lat}, ${location.lng}`,
       price: getRandomInt(1000, 1000000),
       type: getRandomType(),
@@ -61,13 +73,13 @@ const createOffer = () => {
       checkin: getRandomTime(),
       checkout: getRandomTime(),
       features: getRandomFeatures(),
-      description: 'Просторные комнаты',
+      description: getRandomDescription(),
       photos: getRandomPhotos(),
     },
     location: location,
   };
 };
 
-const offers = Array.from({length: OFFERS_COUNT}, createOffer);
+const offers = Array.from({ length: OFFERS_COUNT }, createOffer);
 
 offers.map((offer) => offer); // Временная заглушка для EsLint;
