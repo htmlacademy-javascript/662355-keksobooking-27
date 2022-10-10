@@ -15,7 +15,7 @@ function isNotNumber(param) {
   return typeof param !== 'number';
 }
 
-const pad2 = (number) => (number < 10 ? '0' : '') + number;
+const prependZero2 = (number) => (number < 10 ? '0' : '') + number;
 
 const getRandomElement = (array) => array[getRandomInt(0, array.length - 1)];
 
@@ -27,4 +27,4 @@ const getRandomArray = (array) => {
   return result;
 };
 
-export { getRandomInt, getRandomFloat, pad2, getRandomElement, getRandomArray };
+export { getRandomInt, getRandomFloat, prependZero2, getRandomElement, getRandomArray };
