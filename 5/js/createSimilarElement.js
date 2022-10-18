@@ -1,9 +1,6 @@
-
-
 const offerTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
-
 
 const offerType = {
   flat: 'Квартира',
@@ -23,7 +20,6 @@ const offerFeatures = {
 };
 
 const getPhotos = (photos, imgTemplate) => {
-
   const imgs = photos.map((photo) => {
     const img = imgTemplate.cloneNode(true);
     img.src = photo;
@@ -128,7 +124,6 @@ const fillAvatar = (card, adv) => {
 };
 
 const offerToCard = (adv) => {
-
   const card = offerTemplate.cloneNode(true);
   fillTitle(card, adv);
   fillAddress(card, adv);
@@ -140,7 +135,6 @@ const offerToCard = (adv) => {
   fillDescription(card, adv);
   fillPhotos(card, adv);
   fillAvatar(card, adv);
-
   return card;
 };
 
