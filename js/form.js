@@ -1,43 +1,32 @@
-const DEACTIVATE = true;
-const ACTIVATE = false;
-
-const switchDisabled = (elements, state) => {
+const switchStateElements = (elements, state) => {
   elements.forEach((element) => {
     element.disabled = state;
   });
 };
 
-const switchStateForm = (deactivate) => {
+const switchStateForm = (state) => {
   const form = document.querySelector('.ad-form');
-  if (deactivate) {
-    form.classList.add('ad-form--disabled');
-  } else {
-    form.classList.remove('ad-form--disabled');
-  }
   const fieldsets = form.querySelectorAll('fieldset');
-  switchDisabled(fieldsets, deactivate);
+  form.classList.toggle('ad-form--disabled', state);
+  switchStateElements(fieldsets, state);
 };
 
-const switchStateFilter = (deactivate) => {
+const switchStateFilter = (state) => {
   const filter = document.querySelector('.map__filters');
-  if (deactivate) {
-    filter.classList.add('map__filters--disabled');
-  } else {
-    filter.classList.remove('map__filters--disabled');
-  }
   const selects = filter.querySelectorAll('select');
   const fieldsets = filter.querySelectorAll('fieldset');
-  switchDisabled(selects, deactivate);
-  switchDisabled(fieldsets, deactivate);
+  filter.classList.toggle('map__filters--disabled', state);
+  switchStateElements(selects, state);
+  switchStateElements(fieldsets, state);
 };
 
-const switchStatePage = (state) =>{
+const switchStatePage = (state) => {
   switchStateForm(state);
   switchStateFilter(state);
 };
 
-const deactivatePage = () => switchStatePage(DEACTIVATE);
-const activatePage = () => switchStatePage(ACTIVATE);
+const deactivatePage = () => switchStatePage(true);
+const activatePage = () => switchStatePage(false);
 
 export { deactivatePage, activatePage };
 
