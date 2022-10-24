@@ -36,6 +36,9 @@ const validateRooms = () => roomsOption[roomsField.value].includes(capacityField
 pristine.addValidator(roomsField, validateRooms, getRoomsErrorMessage);
 pristine.addValidator(capacityField, validateRooms);
 
+roomsField.addEventListener('change', () => pristine.validate(capacityField));
+capacityField.addEventListener('change', () => pristine.validate(roomsField));
+
 const switchStateElements = (elements, state) => {
   elements.forEach((element) => {
     element.disabled = state;
