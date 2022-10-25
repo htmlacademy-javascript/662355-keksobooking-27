@@ -1,4 +1,6 @@
 import { activatePage, deactivatePage } from './form.js';
+import { createOffers } from './offer.js';
+import { offerToCard } from './createSimilarElement.js';
 
 deactivatePage();
 
@@ -38,4 +40,32 @@ mainMarker.on('moveend', (evt) => {
   const address = evt.target.getLatLng();
   addressField.value = mapCoorToText(address);
 });
+
+
+const similarOffersMarker = createOffers();
+
+const regularIcon = L.icon({
+  iconUrl: '/img/pin.svg',
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+
+const markerGroup = L.layerGroup().addTo(map);
+
+similarOffersMarker.forEach((offer) => {
+  const { location: { lat, lng } } = offer;
+  const marker = L.marker(
+    {
+      lat,
+      lng,
+    },
+    {
+      icon: regularIcon
+    }
+  );
+  marker
+    .addTo(markerGroup)
+    .bindPopup(offerToCard(offer));
+});
+
 
