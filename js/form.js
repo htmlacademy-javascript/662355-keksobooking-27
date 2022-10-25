@@ -39,11 +39,42 @@ pristine.addValidator(capacityField, validateRooms);
 roomsField.addEventListener('change', () => pristine.validate(capacityField));
 capacityField.addEventListener('change', () => pristine.validate(roomsField));
 
+const typeField = form.querySelector('#type');
+const priceField = form.querySelector('#price');
+const timeinField = form.querySelector('#timein');
+const timeoutField = form.querySelector('#timeout');
+
+const typeOption = {
+  bungalow: 0,
+  flat: 1000,
+  hotel: 3000,
+  house: 5000,
+  palace: 10000
+};
+
+typeField.addEventListener('change', () => {
+  priceField.placeholder = typeOption[typeField.value];
+});
+
+const validatePrice = () => priceField.value >= typeOption[typeField.value];
+
+const getPriceErrorMessage = () => `Минимальная цена ${typeOption[typeField.value]}`;
+
+pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
+
 const switchStateElements = (elements, state) => {
   elements.forEach((element) => {
     element.disabled = state;
   });
 };
+
+timeinField.addEventListener('change', () => {
+  timeoutField.value = timeinField.value;
+});
+
+timeoutField.addEventListener('change', () => {
+  timeinField.value = timeoutField.value;
+});
 
 const switchStateForm = (state) => {
   const fieldsets = form.querySelectorAll('fieldset');
