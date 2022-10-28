@@ -52,15 +52,44 @@ const typeOption = {
   palace: 10000
 };
 
-typeField.addEventListener('change', () => {
-  priceField.placeholder = typeOption[typeField.value];
-});
-
 const validatePrice = () => priceField.value >= typeOption[typeField.value];
 
 const getPriceErrorMessage = () => `Минимальная цена ${typeOption[typeField.value]}`;
 
 pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
+const sliderElement = document.querySelector('.ad-form__slider');
+
+noUiSlider.create(sliderElement, {
+  range: {
+    min: 0,
+    max: 100000,
+  },
+  connect: 'lower',
+  step: 1,
+  start: 0,
+  format: {
+    to: (value) => value.toFixed(0),
+    from: (value) => parseFloat(value),
+  }
+});
+
+sliderElement.noUiSlider.on('update', () => {
+  priceField.value = sliderElement.noUiSlider.get();
+});
+
+priceField.addEventListener('change', () => {
+  sliderElement.noUiSlider.set(priceField.value);
+});
+
+typeField.addEventListener('change', () => {
+  priceField.placeholder = typeOption[typeField.value];
+  sliderElement.noUiSlider.updateOptions({
+    range: {
+      min: typeOption[typeField.value],
+      max: 100000
+    }
+  });
+});
 
 const switchStateElements = (elements, state) => {
   elements.forEach((element) => {
