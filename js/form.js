@@ -1,3 +1,6 @@
+import { sendOfferForm } from './api.js';
+
+
 const form = document.querySelector('.ad-form');
 const pristine = new Pristine(form, {
   classTo: 'ad-form__element',
@@ -6,12 +9,27 @@ const pristine = new Pristine(form, {
   errorTextClass: 'text-help'
 });
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
+const setOfferFormSubmit = (onSuccess, onFail) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
 
-  pristine.validate();
-});
+    const isValid = pristine.validate();
+    if (isValid) {
 
+      const formData = new FormData(evt.target);
+
+      sendOfferForm(formData, onSuccess, onFail);
+
+    }
+  });
+};
+
+const resetButton = document.querySelector('.ad-form__reset');
+const setResetButtonClick = (reset) => {
+  resetButton.addEventListener('click', reset);
+};
+
+const titleField = form.querySelector('#title');
 const roomsField = form.querySelector('#room_number');
 const capacityField = form.querySelector('#capacity');
 
@@ -66,7 +84,7 @@ noUiSlider.create(sliderElement, {
   },
   connect: 'lower',
   step: 1,
-  start: 0,
+  start: 1000,
   format: {
     to: (value) => value.toFixed(0),
     from: (value) => parseFloat(value),
@@ -128,5 +146,20 @@ const switchStatePage = (state) => {
 const deactivatePage = () => switchStatePage(true);
 const activatePage = () => switchStatePage(false);
 
-export { deactivatePage, activatePage };
+
+const resetForm = () => {
+  titleField.value = '';
+  typeField.value = 'flat';
+  sliderElement.noUiSlider.set(1000);
+  priceField.value = '1000';
+  roomsField.value = '1';
+  capacityField.value = '3';
+  timeinField.value = '12:00';
+  const featuresForm = form.querySelectorAll('.features__checkbox');
+  featuresForm.forEach((elem) => {
+    elem.checked = false;
+  });
+};
+
+export { deactivatePage, activatePage, setOfferFormSubmit, resetForm, setResetButtonClick };
 
