@@ -1,6 +1,5 @@
 import { sendOfferForm } from './api.js';
 
-
 const form = document.querySelector('.ad-form');
 const pristine = new Pristine(form, {
   classTo: 'ad-form__element',
@@ -162,4 +161,3 @@ const resetForm = () => {
 };
 
 export { deactivatePage, activatePage, setOfferFormSubmit, resetForm, setResetButtonClick };
-
