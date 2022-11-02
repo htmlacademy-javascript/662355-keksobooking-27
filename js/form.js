@@ -1,5 +1,7 @@
 import { sendOfferForm } from './api.js';
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
 const form = document.querySelector('.ad-form');
 const pristine = new Pristine(form, {
   classTo: 'ad-form__element',
@@ -31,6 +33,37 @@ const setResetButtonClick = (reset) => {
 const titleField = form.querySelector('#title');
 const roomsField = form.querySelector('#room_number');
 const capacityField = form.querySelector('#capacity');
+const avatarField = form.querySelector('#avatar');
+const previewAvatar = form.querySelector('.ad-form-header__preview img');
+const photoField = form.querySelector('#images');
+const containerPhotos = form.querySelector('.ad-form__photo');
+
+const checkFileTypes = (fileName) => FILE_TYPES.some((it) => fileName.toLowerCase().endsWith(it));
+
+
+avatarField.addEventListener('change', () => {
+  const file = avatarField.files[0];
+  if (checkFileTypes(file.name)) {
+    previewAvatar.src = URL.createObjectURL(file);
+  }
+
+});
+
+photoField.addEventListener('change', () => {
+  const files = photoField.files;
+  const fragment = document.createDocumentFragment();
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    if (checkFileTypes(file.name)) {
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(file);
+      img.classList.add('ad-form__photo');
+      fragment.appendChild(img);
+    }
+  }
+  containerPhotos.appendChild(fragment);
+
+});
 
 const roomErrors = {
   1: 'Только для 1 гостя',
