@@ -30,18 +30,8 @@ const getRandomArray = (array) => {
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = '100';
-  alertContainer.style.position = 'absolute';
-  alertContainer.style.left = '0';
-  alertContainer.style.top = '0';
-  alertContainer.style.right = '0';
-  alertContainer.style.padding = '10px 3px';
-  alertContainer.style.fontSize = '25px';
-  alertContainer.style.textAlign = 'center';
-  alertContainer.style.backgroundColor = '#DC143C';
-  alertContainer.style.fontFamily = 'Roboto';
+  alertContainer.classList.add('modal-alert');
   alertContainer.textContent = message;
-
   document.body.append(alertContainer);
 
   setTimeout(() => {
