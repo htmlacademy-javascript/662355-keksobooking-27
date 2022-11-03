@@ -1,6 +1,7 @@
 import { activatePage, deactivatePage } from './form.js';
-import { createOffers } from './offer.js';
 import { offerToCard } from './createSimilarElement.js';
+import { getSimilarOffer } from './api.js';
+import { showAlert } from './util.js';
 
 deactivatePage();
 
@@ -8,6 +9,8 @@ const DEFAULT_COORDINATE = {
   lat: 35.6895000,
   lng: 139.6917100,
 };
+
+const SIMILAR_WIZARD_COUNT = 10;
 
 const mapCoorToText = (coor) => `${coor.lat.toFixed(5)}, ${coor.lng.toFixed(5)}`;
 
@@ -41,31 +44,37 @@ mainMarker.on('moveend', (evt) => {
   addressField.value = mapCoorToText(address);
 });
 
+getSimilarOffer((offers) => {
 
-const similarOffersMarker = createOffers();
+  const regularIcon = L.icon({
+    iconUrl: 'img/pin.svg',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+  });
+  const markerGroup = L.layerGroup().addTo(map);
 
-const regularIcon = L.icon({
-  iconUrl: 'img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  offers.slice(0, SIMILAR_WIZARD_COUNT)
+    .forEach((offer) => {
+      const { location: { lat, lng } } = offer;
+      const marker = L.marker(
+        {
+          lat,
+          lng,
+        },
+        {
+          icon: regularIcon
+        }
+      );
+      marker
+        .addTo(markerGroup)
+        .bindPopup(offerToCard(offer));
+    });
+
+}, () => {
+  showAlert('Не удалось получить похожие объявления. Попробуй еще раз!');
 });
 
-const markerGroup = L.layerGroup().addTo(map);
+const resetMainMark = () => mainMarker.setLatLng(DEFAULT_COORDINATE);
 
-similarOffersMarker.forEach((offer) => {
-  const { location: { lat, lng } } = offer;
-  const marker = L.marker(
-    {
-      lat,
-      lng,
-    },
-    {
-      icon: regularIcon
-    }
-  );
-  marker
-    .addTo(markerGroup)
-    .bindPopup(offerToCard(offer));
-});
-
+export { resetMainMark };
 

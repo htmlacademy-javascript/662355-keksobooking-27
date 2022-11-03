@@ -1,3 +1,4 @@
+const ALERT_SHOW_TIME = 4000;
 
 function getRandomInt(min, max) {
   const newMin = Math.ceil(min);
@@ -27,4 +28,15 @@ const getRandomArray = (array) => {
   return result;
 };
 
-export { getRandomInt, getRandomFloat, prependZero2, getRandomElement, getRandomArray };
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.classList.add('modal-alert');
+  alertContainer.textContent = message;
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+export { getRandomInt, getRandomFloat, prependZero2, getRandomElement, getRandomArray, showAlert };
