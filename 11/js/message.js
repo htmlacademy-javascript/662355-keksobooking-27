@@ -1,4 +1,3 @@
-
 const createSuccessMessage = () => {
   const message = document.querySelector('#success')
     .content

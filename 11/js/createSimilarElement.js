@@ -139,4 +139,3 @@ const offerToCard = (adv) => {
 };
 
 export { offerToCard };
-

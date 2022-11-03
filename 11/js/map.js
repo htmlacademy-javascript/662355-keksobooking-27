@@ -1,7 +1,6 @@
 import { activatePage, deactivatePage } from './form.js';
 import { offerToCard } from './createSimilarElement.js';
 
-
 deactivatePage();
 
 const DEFAULT_COORDINATE = {
@@ -71,8 +70,6 @@ const renderSimilarOffers = (offers) => {
 
 };
 
-
 const resetMainMark = () => mainMarker.setLatLng(DEFAULT_COORDINATE);
 
 export { resetMainMark, renderSimilarOffers };
-

@@ -12,7 +12,6 @@ const reset = () => {
   resetForm();
 };
 
-
 setOfferFormSubmit(() => {
   reset();
   createSuccessMessage();
@@ -32,4 +31,3 @@ getSimilarOffer((offers) => {
 }, () => {
   showAlert('Не удалось получить похожие объявления. Попробуй еще раз!');
 });
-
