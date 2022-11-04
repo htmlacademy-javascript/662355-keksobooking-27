@@ -13,7 +13,7 @@ const offerType = {
 const offerFeatures = {
   wifi: 'Вай-фай',
   dishwasher: 'Посудомоечная машина',
-  parking: 'паркинг',
+  parking: 'Паркинг',
   washer: 'Стиральная машина',
   elevator: 'Лифт',
   conditioner: 'Кондиционер'
@@ -139,4 +139,3 @@ const offerToCard = (adv) => {
 };
 
 export { offerToCard };
-

@@ -24,6 +24,4 @@ const sendOfferForm = (formData, onSuccess, onFail) => fetch('https://27.javascr
     onFail();
   });
 
-
 export { getSimilarOffer, sendOfferForm };
-
