@@ -1,4 +1,5 @@
 import { sendOfferForm } from './api.js';
+import { DEFAULT_COORDINATE, mapCoorToText } from './util.js';
 
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
@@ -27,9 +28,12 @@ const setOfferFormSubmit = (onSuccess, onFail) => {
 
 const resetButton = document.querySelector('.ad-form__reset');
 const setResetButtonClick = (reset) => {
-  resetButton.addEventListener('click', reset);
+  resetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    reset();
+  });
 };
-
+const addressField = form.querySelector('#address');
 const titleField = form.querySelector('#title');
 const roomsField = form.querySelector('#room_number');
 const capacityField = form.querySelector('#capacity');
@@ -116,7 +120,7 @@ noUiSlider.create(sliderElement, {
   },
   connect: 'lower',
   step: 1,
-  start: 1000,
+  start: 0,
   format: {
     to: (value) => value.toFixed(0),
     from: (value) => parseFloat(value),
@@ -180,17 +184,22 @@ const activatePage = () => switchStatePage(false);
 
 
 const resetForm = () => {
+  addressField.value = mapCoorToText(DEFAULT_COORDINATE);
   titleField.value = '';
-  typeField.value = 'flat';
-  sliderElement.noUiSlider.set(1000);
-  priceField.value = '1000';
+  typeField.value = 'bungalow';
+  sliderElement.noUiSlider.set(0);
+  priceField.value = '0';
   roomsField.value = '1';
-  capacityField.value = '3';
+  capacityField.value = '1';
   timeinField.value = '12:00';
   const featuresForm = form.querySelectorAll('.features__checkbox');
   featuresForm.forEach((elem) => {
     elem.checked = false;
   });
+  photoField.value = '';
+  containerPhotos.innerHTML = '';
+  avatarField.value = '';
+  previewAvatar.src = 'img/muffin-grey.svg';
 };
 
 export { deactivatePage, activatePage, setOfferFormSubmit, resetForm, setResetButtonClick };

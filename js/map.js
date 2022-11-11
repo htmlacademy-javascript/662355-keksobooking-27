@@ -1,16 +1,10 @@
 import { activatePage, deactivatePage } from './form.js';
 import { offerToCard } from './createSimilarElement.js';
+import { DEFAULT_COORDINATE, mapCoorToText } from './util.js';
 
 deactivatePage();
 
-const DEFAULT_COORDINATE = {
-  lat: 35.6895000,
-  lng: 139.6917100,
-};
-
-const SIMILAR_WIZARD_COUNT = 10;
-
-const mapCoorToText = (coor) => `${coor.lat.toFixed(5)}, ${coor.lng.toFixed(5)}`;
+const SIMILAR_OFFER_COUNT = 10;
 
 const addressField = document.querySelector('#address');
 addressField.value = mapCoorToText(DEFAULT_COORDINATE);
@@ -51,7 +45,7 @@ const renderSimilarOffers = (offers) => {
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   });
-  offers.slice(0, SIMILAR_WIZARD_COUNT)
+  offers.slice(0, SIMILAR_OFFER_COUNT)
     .forEach((offer) => {
       const { location: { lat, lng } } = offer;
       const marker = L.marker(
