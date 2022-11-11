@@ -1,5 +1,12 @@
 const ALERT_SHOW_TIME = 4000;
 
+const DEFAULT_COORDINATE = {
+  lat: 35.6895000,
+  lng: 139.6917100,
+};
+
+const mapCoorToText = (coor) => `${coor.lat.toFixed(5)}, ${coor.lng.toFixed(5)}`;
+
 function getRandomInt(min, max) {
   const newMin = Math.ceil(min);
   const newMax = Math.floor(max);
@@ -47,4 +54,4 @@ const debounce = (callback, timeoutDelay = 500) => {
   };
 };
 
-export { getRandomInt, getRandomFloat, prependZero2, getRandomElement, getRandomArray, showAlert, debounce };
+export { getRandomInt, getRandomFloat, prependZero2, getRandomElement, getRandomArray, showAlert, debounce, DEFAULT_COORDINATE, mapCoorToText };

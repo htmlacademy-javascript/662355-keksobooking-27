@@ -20,14 +20,16 @@ const filterRoomsField = document.querySelector('#housing-rooms');
 const filterGuestsField = document.querySelector('#housing-guests');
 const filterFeaturesFields = document.querySelectorAll('.map__checkbox');
 
-const filterType = (ad) => {
+const filters = [filterTypeField, filterPriceField, filterRoomsField, filterGuestsField, ...filterFeaturesFields];
+
+const filterByType = (ad) => {
   if (filterTypeField.value === 'any') {
     return true;
   }
   return ad.offer.type === filterTypeField.value;
 };
 
-const filterPrice = (ad) => {
+const filterByPrice = (ad) => {
   switch (filterPriceField.value) {
     case 'any':
       return true;
@@ -40,21 +42,21 @@ const filterPrice = (ad) => {
   }
 };
 
-const filterRooms = (ad) => {
+const filterByRooms = (ad) => {
   if (filterRoomsField.value === 'any') {
     return true;
   }
   return ad.offer.rooms === +filterRoomsField.value;
 };
 
-const filterGuests = (ad) => {
+const filterByGuests = (ad) => {
   if (filterGuestsField.value === 'any') {
     return true;
   }
   return ad.offer.guests === +filterGuestsField.value;
 };
 
-const filterFeatures = (ad) => {
+const filterByFeatures = (ad) => {
   const featuresChecked = [];
   filterFeaturesFields.forEach((feature) => {
     if (feature.checked) {
@@ -68,24 +70,11 @@ const filterFeatures = (ad) => {
   return featuresChecked.every((feature) => ad.offer.features.includes(feature));
 };
 
-
 const filterOffers = (ad) =>
-  filterType(ad) && filterPrice(ad) && filterRooms(ad) && filterGuests(ad) && filterFeatures(ad);
+  filterByType(ad) && filterByPrice(ad) && filterByRooms(ad) && filterByGuests(ad) && filterByFeatures(ad);
 
 const setChangeEventOnFilter = (renderSimilarOffers) => {
-  filterTypeField.addEventListener('change', () => {
-    renderSimilarOffers();
-  });
-  filterPriceField.addEventListener('change', () => {
-    renderSimilarOffers();
-  });
-  filterRoomsField.addEventListener('change', () => {
-    renderSimilarOffers();
-  });
-  filterGuestsField.addEventListener('change', () => {
-    renderSimilarOffers();
-  });
-  filterFeaturesFields.forEach((feature) => feature.addEventListener('click', () => {
+  filters.forEach((filter) => filter.addEventListener('change', () => {
     renderSimilarOffers();
   }));
 };

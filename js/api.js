@@ -7,7 +7,7 @@ const getSimilarOffer = (onSuccess, onFail) => fetch('https://27.javascript.page
     onFail();
   });
 
-const sendOfferForm = (formData, onSuccess, onFail) => fetch('https://27.javascript.pages.academ/keksobooking',
+const sendOfferForm = (formData, onSuccess, onFail) => fetch('https://27.javascript.pages.academy/keksobooking',
   {
     method: 'POST',
     body: formData,
