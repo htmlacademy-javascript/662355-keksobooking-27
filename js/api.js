@@ -1,4 +1,7 @@
-const getSimilarOffer = (onSuccess, onFail) => fetch('https://27.javascript.pages.academy/keksobooking/data')
+const GET_OFFERS_URL = 'https://27.javascript.pages.academy/keksobooking/data';
+const SEND_OFFERS_URL = 'https://27.javascript.pages.academy/keksobooking';
+
+const getSimilarOffer = (onSuccess, onFail) => fetch(GET_OFFERS_URL)
   .then((response) => response.json())
   .then((offers) => {
     onSuccess(offers);
@@ -7,7 +10,7 @@ const getSimilarOffer = (onSuccess, onFail) => fetch('https://27.javascript.page
     onFail();
   });
 
-const sendOfferForm = (formData, onSuccess, onFail) => fetch('https://27.javascript.pages.academy/keksobooking',
+const sendOfferForm = (formData, onSuccess, onFail) => fetch(SEND_OFFERS_URL,
   {
     method: 'POST',
     body: formData,

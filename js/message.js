@@ -20,17 +20,17 @@ const createErrorMessage = () => {
     .content
     .querySelector('.error');
   const button = message.querySelector('.error__button');
-  const eventListener = (evt) => {
+  const removeMessage = (evt) => {
     if (evt.type === 'click' || evt.key === 'Escape') {
       message.remove();
-      document.removeEventListener('keydown', eventListener);
-      document.removeEventListener('click', eventListener);
-      button.removeEventListener('click', eventListener);
+      document.removeEventListener('keydown', removeMessage);
+      document.removeEventListener('click', removeMessage);
+      button.removeEventListener('click', removeMessage);
     }
   };
-  document.addEventListener('keydown', eventListener);
-  document.addEventListener('click', eventListener);
-  button.addEventListener('click', eventListener);
+  document.addEventListener('keydown', removeMessage);
+  document.addEventListener('click', removeMessage);
+  button.addEventListener('click', removeMessage);
   document.body.appendChild(message);
 
 };

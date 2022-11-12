@@ -27,14 +27,6 @@ const prependZero2 = (number) => (number < 10 ? '0' : '') + number;
 
 const getRandomElement = (array) => array[getRandomInt(0, array.length - 1)];
 
-const getRandomArray = (array) => {
-  const result = array.filter(() => getRandomInt(0, 1));
-  if (result.length === 0) {
-    result.push(getRandomElement(array));
-  }
-  return result;
-};
-
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
   alertContainer.classList.add('modal-alert');
@@ -54,4 +46,4 @@ const debounce = (callback, timeoutDelay = 500) => {
   };
 };
 
-export { getRandomInt, getRandomFloat, prependZero2, getRandomElement, getRandomArray, showAlert, debounce, DEFAULT_COORDINATE, mapCoorToText };
+export { getRandomInt, getRandomFloat, prependZero2, getRandomElement, showAlert, debounce, DEFAULT_COORDINATE, mapCoorToText };
