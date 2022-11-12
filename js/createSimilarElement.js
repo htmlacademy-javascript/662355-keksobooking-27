@@ -10,15 +10,6 @@ const offerType = {
   hotel: 'Отель'
 };
 
-const offerFeatures = {
-  wifi: 'Вай-фай',
-  dishwasher: 'Посудомоечная машина',
-  parking: 'Паркинг',
-  washer: 'Стиральная машина',
-  elevator: 'Лифт',
-  conditioner: 'Кондиционер'
-};
-
 const getPhotos = (photos, imgTemplate) => {
   const imgs = photos.map((photo) => {
     const img = imgTemplate.cloneNode(true);
@@ -83,16 +74,26 @@ const fillTime = (card, adv) => {
     hide(popupElement);
   }
 };
+
 const fillFeatures = (card, adv) => {
-  const popupElement = card.querySelector('.popup__features');
-  if (adv.offer.features) {
-    popupElement.innerText = adv.offer.features
-      .map((feature) => offerFeatures[feature])
-      .join(', ');
-  } else {
-    hide(popupElement);
+  const popupElements = card.querySelectorAll('.popup__feature');
+
+  popupElements.forEach((element) => hide(element));
+
+  if (!adv.offer.features) {
+    return;
   }
+
+  adv.offer.features.forEach((feature) => {
+    popupElements.forEach((element) => {
+      if (element.classList.contains(`popup__feature--${feature}`)) {
+        element.classList.remove('hidden');
+      }
+    });
+  });
+
 };
+
 const fillDescription = (card, adv) => {
   const popupElement = card.querySelector('.popup__description');
   if (adv.offer.description) {
